@@ -8,6 +8,6 @@ app.listen(port, () => {
   console.log(`Game server running at http://localhost:${port}`);
 });
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
+app.get('/test', (req, res) => {
+  res.send('Hello World!');
+});

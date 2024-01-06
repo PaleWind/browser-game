@@ -10,6 +10,8 @@ COPY package*.json ./
 # Install any dependencies
 RUN npm install
 
+RUN npm install -g nodemon
+
 # Copy the local files to the container
 COPY . .
 
@@ -17,4 +19,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the app when the container launches
-CMD ["node", "server/server.js"]
+CMD ["nodemon", "server/server.js"]
