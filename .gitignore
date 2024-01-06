@@ -14,7 +14,6 @@ ehthumbs.db
 Thumbs.db
 
 # IDE/Editor folders
-.vscode/
 .idea/
 *.swp
 *.swo
