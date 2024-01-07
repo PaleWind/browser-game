@@ -1,8 +1,8 @@
 # Use an official Node runtime as the base image
-FROM node:latest
+FROM node:20
 
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR /web
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
@@ -19,4 +19,5 @@ COPY . .
 EXPOSE 3000
 
 # Run the app when the container launches
-CMD ["nodemon", "server/server.js"]
+# CMD ["nodemon", "server/server.js"]
+CMD ["npm", "run", "start-dev"]
