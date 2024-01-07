@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "HTML5 Canvas Game",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-dev": "nodemon server.js"
+  },
+  "nodemonConfig": {
+    "watch": ["web/*.js", "web/*.html"],
+    "ext": "js,html",
+    "ignore": ["web/node_modules/"]
   },
   "dependencies": {
     "express": "^4.17.1"
