@@ -21,6 +21,7 @@ jobs:
           chmod 600 sshkey
 
           ssh -o "StrictHostKeyChecking=no" -i sshkey $USER_NAME@$HOSTNAME '
+            ls &&
             cd browser-game &&
             git stash &&
             git checkout main &&
