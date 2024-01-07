@@ -8,22 +8,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: Deploy
-    - uses: actions/checkout@v2
-      env: 
-        PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-        HOSTNAME: ${{ secrets.SSH_HOST }}
-        USER_NAME: ${{ secrets.USER_NAME }}
-      
-      run: |
-        echo "$SSH_PRIVATE_KEY" > sshkey
-        chmod sshkey
-
-        ssh -o "StrictHostKeyChecking=no" -i sshkey ubuntu@ec2-3-147-69-185.us-east-2.compute.amazonaws.com '
+      - name: Deploy
+      - uses: actions/checkout@v2
+        env: 
+          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          HOSTNAME: ${{ secrets.SSH_HOST }}
+          USER_NAME: ${{ secrets.USER_NAME }}
         
-          cd browser-game &&
-          git stash &&
-          git checkout main &&
-          git pull &&
-          pm2 restart all
-          '
+        run: |
+          echo "$SSH_PRIVATE_KEY" > sshkey
+          chmod sshkey
+
+          ssh -o "StrictHostKeyChecking=no" -i sshkey ubuntu@ec2-3-147-69-185.us-east-2.compute.amazonaws.com '
+          
+            cd browser-game &&
+            git stash &&
+            git checkout main &&
+            git pull &&
+            pm2 restart all
+            '
