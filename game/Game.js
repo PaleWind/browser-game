@@ -34,7 +34,7 @@ class Game {
                 this.keys.push(e.key)
             }
             if (e.key === '1') this.player.shoot()
-            if (e.key === '2') this.player.shoot()
+            if (e.key === ' ') this.player.shoot()
         })
 
         window.addEventListener('keyup', (e) => {
