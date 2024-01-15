@@ -7,9 +7,8 @@ RUN git clone --bare https://github.com/PaleWind/browser-game app
 
 # Set the working directory in the container
 WORKDIR /app/branches
-RUN git worktree add main
+RUN git worktree add main && cd main && git pull
 WORKDIR /app/branches/main
-RUN git pull
 
 # Install any dependencies
 RUN npm install
