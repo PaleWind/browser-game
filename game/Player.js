@@ -1,4 +1,5 @@
 import Game from "./Game.js"
+import Timer from "../utils/Timer.js"
 
 class Player {
 
@@ -34,11 +35,12 @@ class Player {
         const moveVertical   = this.game.keysBeingPressed.includes('ArrowUp')    * -1
                              + this.game.keysBeingPressed.includes('ArrowDown')  *  1
 
-        const diagonalSpeed = (Math.abs(moveHorizontal) & Math.abs(moveVertical) * this.diagonalFactor)
+        // calculate diagonal movement like a real g
+        const playerSpeed = (this.speed - (Math.abs(moveHorizontal) & Math.abs(moveVertical) * this.diagonalFactor))
 
         // update player position
-        this.x += moveHorizontal * (this.speed - diagonalSpeed)
-        this.y += moveVertical * (this.speed - diagonalSpeed)
+        this.x += moveHorizontal * (playerSpeed)
+        this.y += moveVertical * (playerSpeed)
 
         // Bounds checking
         this.x = Math.max(-this.mX, Math.min(this.x, this.game.width - this.mX));

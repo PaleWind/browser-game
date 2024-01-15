@@ -10,6 +10,7 @@ const port = 3000
 
 app.use(express.static('index'));
 app.use('/game', express.static('game'));
+app.use('/utils', express.static('utils'));
 
 app.listen(port, () => {
   console.log(`Game server running at http://localhost:${port}`)

@@ -1,7 +1,9 @@
-import Game from "../game/Game.js";
+import Timer from "../utils/Timer.js"
+import Game from "../game/Game.js"
 
 const boardWidth = 500
 const boardHeight = 600
+let frames = 0
 
 window.addEventListener('load', function(){
   // JavaScript to draw on the canvas
@@ -12,10 +14,25 @@ window.addEventListener('load', function(){
   
   const game = new Game(canvas)
   
+  let accumulatedTime = 0;
+  const frameTime = 1000 / 60; 
+
   function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height) 
-    game.render(ctx)
+    accumulatedTime += Timer.deltaTime;
+    while (accumulatedTime > frameTime) {
+      accumulatedTime -= frameTime;
+      frames++
+      ctx.clearRect(0, 0, canvas.width, canvas.height) 
+      game.render(ctx)
+    }
     requestAnimationFrame(animate)
   }
   animate()
 })
+
+setInterval(() => {
+
+  console.log(frames)
+  frames = 0
+  // console.clear()
+}, 1000)
