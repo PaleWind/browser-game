@@ -25,4 +25,4 @@ EXPOSE 3000
 # Run the app when the container launches
 # CMD ["nodemon", "server/server.js"]
 # CMD ["npm", "run", "dev"]
-CMD ["cat"]
+ENTRYPOINT ["tail", "-f", "/dev/null"]
