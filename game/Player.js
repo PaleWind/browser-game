@@ -4,13 +4,14 @@ class Player {
 
     constructor(game) {
         this.game = game
-        this.width = 100
+        this.width = 50
         this.height = 50 
         this.mX = this.width * 0.5 // middle of the player model x-axis
         this.mY = this.height * 0.5 // middle of the player model y-axis
         this.x = this.game.width * 0.5 - this.mX
         this.y = this.game.height * 0.5 - this.mY
         this.speed = 5
+        this.diagonalFactor = Math.sqrt(2)
     }
 
     render(ctx) {
@@ -27,14 +28,17 @@ class Player {
     }
 
     #handlePlayerMovement() {
-        const moveLeft = this.game.keysBeingPressed.includes('ArrowLeft') ? -1 : 0;
-        const moveRight = this.game.keysBeingPressed.includes('ArrowRight') ? 1 : 0;
-        const moveUp = this.game.keysBeingPressed.includes('ArrowUp') ? -1 : 0;
-        const moveDown = this.game.keysBeingPressed.includes('ArrowDown') ? 1 : 0;
+        const moveHorizontal = this.game.keysBeingPressed.includes('ArrowLeft')  * -1
+                             + this.game.keysBeingPressed.includes('ArrowRight') *  1
+
+        const moveVertical   = this.game.keysBeingPressed.includes('ArrowUp')    * -1
+                             + this.game.keysBeingPressed.includes('ArrowDown')  *  1
+
+        const diagonalSpeed = (Math.abs(moveHorizontal) & Math.abs(moveVertical) * this.diagonalFactor)
 
         // update player position
-        this.x += (moveRight + moveLeft) * this.speed;
-        this.y += (moveDown + moveUp) * this.speed;
+        this.x += moveHorizontal * (this.speed - diagonalSpeed)
+        this.y += moveVertical * (this.speed - diagonalSpeed)
 
         // Bounds checking
         this.x = Math.max(-this.mX, Math.min(this.x, this.game.width - this.mX));
