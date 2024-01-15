@@ -9,6 +9,7 @@ RUN git clone --bare https://github.com/PaleWind/browser-game app
 WORKDIR /app/branches
 RUN git worktree add main
 WORKDIR /app/branches/main
+RUN git pull
 
 # Install any dependencies
 RUN npm install
@@ -23,4 +24,5 @@ EXPOSE 3000
 
 # Run the app when the container launches
 # CMD ["nodemon", "server/server.js"]
-CMD ["npm", "run", "dev"]
+# CMD ["npm", "run", "dev"]
+CMD ["cat"]
