@@ -20,4 +20,4 @@ EXPOSE 3000
 
 # Run the app when the container launches
 # CMD ["nodemon", "server/server.js"]
-CMD ["npm", "run", "start-dev"]
+CMD ["npm", "run", "dev"]

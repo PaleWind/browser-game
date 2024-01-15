@@ -2,16 +2,16 @@
   "name": "browser-game",
   "version": "1.0.0",
   "description": "HTML5 Canvas Game",
-  "main": "server.js",
+  "main": "server/server.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "start-dev": "nodemon server/server.js"
+    "start": "node server/server.js",
+    "dev": "nodemon server/server.js"
   },
   "nodemonConfig": {
-    "watch": ["app/*.js", "app/*.html"],
+    "watch": ["web/*.js", "web/*.html"],
     "ext": "js,html",
-    "ignore": ["app/node_modules/"]
+    "ignore": ["web/node_modules/"]
   },
   "dependencies": {
     "express": "^4.17.1"

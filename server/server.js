@@ -1,14 +1,24 @@
-import express from 'express';
-// const express = require('express');
-const app = express();
-const port = 3000;
+import express from 'express'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-app.use(express.static('../web/index/')); // Serve static files from the current directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express()
+const port = 3000
+
+app.use(express.static('index'));
+app.use('/game', express.static('game'));
 
 app.listen(port, () => {
-  console.log(`Game server running at http://localhost:${port}`);
-});
+  console.log(`Game server running at http://localhost:${port}`)
+})
+
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../index/index.html'))
+// })
 
 app.get('/test', (req, res) => {
-  res.send('Hello World!');
-});
+  res.send('Hello World!')
+})

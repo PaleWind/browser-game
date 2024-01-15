@@ -1,4 +1,4 @@
-import Game from "./Game.js";
+import Game from "../game/Game.js";
 
 const boardWidth = 500
 const boardHeight = 600
