@@ -5,7 +5,7 @@ class Player {
     constructor(game) {
         this.game = game
         this.width = 100
-        this.height = 100 
+        this.height = 50 
         this.mX = this.width * 0.5 // middle of the player model x-axis
         this.mY = this.height * 0.5 // middle of the player model y-axis
         this.x = this.game.width * 0.5 - this.mX

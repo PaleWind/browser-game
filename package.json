@@ -9,9 +9,14 @@
     "dev": "nodemon server/server.js"
   },
   "nodemonConfig": {
-    "watch": ["web/*.js", "web/*.html"],
+    "watch": [
+      "**/*.js",
+      "**/*.html"
+    ],
     "ext": "js,html",
-    "ignore": ["web/node_modules/"]
+    "ignore": [
+      "**/node_modules/"
+    ]
   },
   "dependencies": {
     "express": "^4.17.1"

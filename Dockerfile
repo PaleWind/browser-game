@@ -1,11 +1,14 @@
 # Use an official Node runtime as the base image
 FROM node:20
 
-# Set the working directory in the container
-WORKDIR /app
-
 # Copy package.json and package-lock.json
-COPY package*.json ./
+# COPY package*.json ./
+RUN git clone --bare https://github.com/PaleWind/browser-game app
+
+# Set the working directory in the container
+WORKDIR /app/branches
+RUN git worktree add main
+WORKDIR /app/branches/main
 
 # Install any dependencies
 RUN npm install
@@ -13,7 +16,7 @@ RUN npm install
 RUN npm install -g nodemon
 
 # Copy the local files to the container
-COPY . .
+# COPY . .
 
 # Make port 3000 available to the world outside this container
 EXPOSE 3000
