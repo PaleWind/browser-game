@@ -1,3 +1,5 @@
+import Game from "./Game.js"
+
 class Player {
 
     constructor(game) {
@@ -25,13 +27,18 @@ class Player {
     }
 
     #handlePlayerMovement() {
-        const moveLeft = this.game.keys.includes('ArrowLeft') ? -1 : 0;
-        const moveRight = this.game.keys.includes('ArrowRight') ? 1 : 0;
-        const moveUp = this.game.keys.includes('ArrowUp') ? -1 : 0;
-        const moveDown = this.game.keys.includes('ArrowDown') ? 1 : 0;
+        const moveLeft = this.game.keysBeingPressed.includes('ArrowLeft') ? -1 : 0;
+        const moveRight = this.game.keysBeingPressed.includes('ArrowRight') ? 1 : 0;
+        const moveUp = this.game.keysBeingPressed.includes('ArrowUp') ? -1 : 0;
+        const moveDown = this.game.keysBeingPressed.includes('ArrowDown') ? 1 : 0;
 
+        // update player position
         this.x += (moveRight + moveLeft) * this.speed;
         this.y += (moveDown + moveUp) * this.speed;
+
+        // Bounds checking
+        this.x = Math.max(-this.mX, Math.min(this.x, this.game.width - this.mX));
+        this.y = Math.max(-this.mY, Math.min(this.y, this.game.height - this.mY));
     }
 
 }

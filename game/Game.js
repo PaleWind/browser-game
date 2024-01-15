@@ -9,12 +9,15 @@ class Game {
         this.width = this.canvas.width
         this.height = this.canvas.height 
         this.player = new Player(this)
-        this.keys = []
+        this.keysBeingPressed = []
         this.projectilePoolSize = 10
         this.projectilePool = []
+        this.menuKeyMap = {}
+        this.gameKeyMap = {}
 
         this.bindInputcontrols()
         this.loadProjectilePool()
+        this.#loadKeyMaps()
     }
 
     render(ctx) {
@@ -30,16 +33,17 @@ class Game {
         //player input listeners
         window.addEventListener('keydown', (e) => {
             console.log(e.key)
-            if (this.keys.indexOf(e.key) === -1) {
-                this.keys.push(e.key)
+            if (this.keysBeingPressed.indexOf(e.key) === -1) {
+                this.keysBeingPressed.push(e.key)
             }
-            if (e.key === '1') this.player.shoot()
-            if (e.key === ' ') this.player.shoot()
+            this.gameKeyMap[e.key]?.()
+            // if (e.key === '1') this.player.shoot()
+            // if (e.key === ' ') this.player.shoot()
         })
 
         window.addEventListener('keyup', (e) => {
-            const index = this.keys.indexOf(e.key)
-            if (index > -1) this.keys.splice(index, 1)
+            const index = this.keysBeingPressed.indexOf(e.key)
+            if (index > -1) this.keysBeingPressed.splice(index, 1)
         })
     }
  
@@ -54,7 +58,13 @@ class Game {
             if (this.projectilePool[i].inPool) return this.projectilePool[i]
         }
     }
- 
+
+    #loadKeyMaps() {
+        this.menuKeyMap['1'] = () => {}
+        this.gameKeyMap['1'] = () => { this.player.shoot() }
+        this.gameKeyMap[' '] = () => { this.player.shoot() }
+    }
+
 }
 
 export default Game
