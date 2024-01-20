@@ -1,31 +1,54 @@
+import Camera from "./Camera.js"
 import Player from "./Player.js"
 import Projectile from "./Projectile.js"
+import VillageMap from "./map/tileMaps/VillageMap.js"
 
 class Game { 
 
-    constructor(ctx) {
-        //properties
-        this.canvas = ctx
-        this.width = this.canvas.width
-        this.height = this.canvas.height 
-        this.player = new Player(this)
+    constructor() {
+        const boardWidth = 12 // in tiles*
+        const boardHeight = 12 // in tiles*
+        const tileSize = 40
+
+        this.canvas = document.getElementById('myCanvas')
+        this.canvas.width = boardWidth * tileSize
+        this.canvas.height = boardHeight * tileSize
+        this.ctx = this.canvas.getContext('2d')
+    
+        // Other properties
+        this.camera
+        this.player
         this.keysBeingPressed = []
         this.projectilePoolSize = 10
         this.projectilePool = []
         this.menuKeyMap = {}
         this.gameKeyMap = {}
-
+        this.gameMap = new VillageMap()
+    
         this.bindInputcontrols()
         this.loadProjectilePool()
         this.#loadKeyMaps()
+        this.#loadGameMap()
     }
 
-    render(ctx) {
+    init() {
+        this.player = new Player(this)
+        this.camera = new Camera(this.gameMap.map, 512, 512)
+        this.camera.follow(this.player)
+    }
+
+    update() {
         this.player.update()
-        this.player.render(ctx)
+        this.camera.update()
+    }
+
+    render() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) 
+        this.gameMap.render(this.ctx, this.player.x, this.player.y)
+        this.player.render(this.ctx)
         this.projectilePool.forEach(projectile => {
             projectile.update()
-            projectile.render(ctx)
+            projectile.render(this.ctx)
         })
     }
 
@@ -63,6 +86,10 @@ class Game {
         this.menuKeyMap['1'] = () => {}
         this.gameKeyMap['1'] = () => { this.player.shoot() }
         this.gameKeyMap[' '] = () => { this.player.shoot() }
+    }
+
+    #loadGameMap() {
+        
     }
 
 }
