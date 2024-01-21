@@ -13,7 +13,8 @@ class Projectile {
 
     render(ctx) {
         if (!this.inPool) {
-           ctx.fillRect(this.x, this.y, this.width, this.height) 
+            console.log('projectile: ', this.x, this.y)
+           ctx.fillRect(this.x -800, this.y, this.width, this.height) 
         }
     }
 

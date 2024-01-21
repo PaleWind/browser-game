@@ -1,5 +1,3 @@
-
-
 class Camera {
 
     constructor(map, width, height) {
