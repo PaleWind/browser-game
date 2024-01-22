@@ -4,6 +4,7 @@ class Player {
         this.game = game
         this.width = game.gameMap.tsize - 4
         this.height = game.gameMap.tsize - 4
+        this.middleX = 30
         this.mX = game.gameMap.rows * game.gameMap.tsize  
         this.mY = game.gameMap.cols * game.gameMap.tsize 
         this.x = x 
@@ -28,7 +29,7 @@ class Player {
 
     shoot() {
        const projectile = this.game.getAvailableProjectile()
-       if (projectile) projectile.start(this.x + this.mX, this.y) 
+       if (projectile) projectile.start(this.screenX + this.middleX, this.y) 
     }
 
     #move2() {
