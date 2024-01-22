@@ -1,9 +1,9 @@
-class VillageMap {
+import BaseMap from '../iGameMap.js';
 
+class VillageMap extends BaseMap {
     constructor() {
-        this.cols = 12
-        this.rows = 12
-        this.tsize = 64
+        super(12, 12, 64, 400, 64); // Call the constructor of the BaseMap
+        
         // Initialize tiles
         this.layers = [[
             3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
@@ -16,7 +16,7 @@ class VillageMap {
             3, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 3,
             3, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 3,
             3, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3,
-            3, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 3,
+            3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 3,
             3, 3, 3, 1, 1, 2, 3, 3, 3, 3, 3, 3
         ], [
             4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4,
@@ -28,15 +28,13 @@ class VillageMap {
             4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
             4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
             4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
-            4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4,
-            4, 4, 4, 0, 5, 4, 4, 4, 4, 4, 4, 4,
-            4, 4, 4, 0, 0, 3, 3, 3, 3, 3, 3, 3
+            4, 0, 0, 0, 5, 4, 0, 0, 0, 0, 0, 4,
+            4, 4, 4, 0, 0, 4, 4, 4, 4, 4, 4, 4,
+            4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3
         ]]
     }
 
-    getTile(layer, col, row) {
-        return this.layers[layer][row * this.cols + col];
-    }
+    // Additional methods specific to VillageMap can go here
 }
 
-export default VillageMap
+export default VillageMap;

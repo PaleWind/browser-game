@@ -3,12 +3,14 @@ import Game from "../game/Game.js"
 import AssetLoader from "../assets/AssetLoader.js"
 import { DebugInfoRenderer } from "../game/utils/DebugInfoRenderer.js"
 
+let frames = 0
+let fps = 0
+
 window.addEventListener('load', function(){
   const TILE_SIZE = 64
   const CAMERA_WIDTH = TILE_SIZE * 8
   const CAMERA_HEIGHT = TILE_SIZE * 8
 
-  let frames = 0
   let accumulatedTime = 0
   const frameTime = 1000 / 60
 
@@ -29,7 +31,7 @@ window.addEventListener('load', function(){
       frames++
       game.update(delta)
       game.render(ctx)
-      debugInfoRenderer.render(game)
+      debugInfoRenderer.render(game, fps)
     }
     requestAnimationFrame(animate)
   }
@@ -38,8 +40,8 @@ window.addEventListener('load', function(){
 })
 
 setInterval(() => {
-
-  console.log(frames)
+  // console.log(frames)
+  fps = frames
   frames = 0
   // console.clear()
 }, 1000)

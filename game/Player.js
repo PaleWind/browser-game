@@ -2,23 +2,28 @@ class Player {
 
     constructor(game, x, y) {
         this.game = game
-        this.width = game.gameMap.tsize
-        this.height = game.gameMap.tsize 
-        this.mX = game.gameMap.cols * game.gameMap.tsize 
+        this.width = game.gameMap.tsize - 4
+        this.height = game.gameMap.tsize - 4
+        this.mX = game.gameMap.rows * game.gameMap.tsize  
         this.mY = game.gameMap.cols * game.gameMap.tsize 
-        this.x = x // this.game.canvas.width * 0.5 - this.mX
-        this.y = y // this.game.canvas.height * 0.5 - this.mY
+        this.x = x 
+        this.y = y 
         this.speed = 5
         this.diagonalFactor = Math.sqrt(2)
+        this.screenX = x
+        this.screenY = y
+        this.moveHorizontal = 0
+        this.moveVertical = 0
+        this.computedSpeed = 0
     }
 
     render(ctx) {
         ctx.fillStyle = 'black'
-        ctx.fillRect(this.x, this.y, this.width, this.height)
+        ctx.fillRect(this.screenX, this.screenY, this.width, this.height)
     }
 
     update(delta) {
-        this.#move(delta)
+        this.#move2()
     }
 
     shoot() {
@@ -26,32 +31,37 @@ class Player {
        if (projectile) projectile.start(this.x + this.mX, this.y) 
     }
 
-    #move(delta) {
-        const moveHorizontal = this.game.keysBeingPressed.includes('ArrowLeft')  * -1
-                             + this.game.keysBeingPressed.includes('ArrowRight') *  1
+    #move2() {
+        this.moveHorizontal = this.game.keysBeingPressed.includes('ArrowLeft') * -1 +
+                                this.game.keysBeingPressed.includes('ArrowRight') * 1
+        this.moveVertical = this.game.keysBeingPressed.includes('ArrowUp') * -1 +
+                            this.game.keysBeingPressed.includes('ArrowDown') * 1
 
-        const moveVertical   = this.game.keysBeingPressed.includes('ArrowUp')    * -1
-                             + this.game.keysBeingPressed.includes('ArrowDown')  *  1
+        this.computedSpeed = this.speed -
+                                (this.diagonalFactor *
+                                Math.abs(this.moveHorizontal) & Math.abs(this.moveVertical))
 
-        const playerSpeed = (this.speed - (Math.abs(moveHorizontal) & Math.abs(moveVertical) * this.diagonalFactor))
+        let newX = this.x + this.moveHorizontal * this.computedSpeed
+        let newY = this.y + this.moveVertical * this.computedSpeed
 
-        this.x += moveHorizontal * playerSpeed
-        this.y += moveVertical * playerSpeed
-    
-        // check if we walked into a non-walkable tile
-        // this._collide(dirx, diry);
-    
-        // clamp values
-        var maxX = this.game.camera.width
-        var maxY = this.game.camera.height
-        this.x = Math.max(0, Math.min(this.x, maxX));
-        this.y = Math.max(0, Math.min(this.y, maxY));
-
-        // Bounds checking
-        // this.x = Math.max(-this.mX, Math.min(this.x, this.game.canvas.width - this.mX));
-        // this.y = Math.max(-this.mY, Math.min(this.y, this.game.canvas.height - this.mY));
+        // Separately handle X and Y collisions
+        if (!this.#collidesWithSolid(newX, this.y)) {
+            this.x = Math.max(0, Math.min(newX, this.mX - this.width))
+        }
+        if (!this.#collidesWithSolid(this.x, newY)) {
+            this.y = Math.max(0, Math.min(newY, this.mY - this.height))
+        }
     }
 
+    #collidesWithSolid(x, y) {
+        const buffer = 0
+
+        return this.game.gameMap.isSolidTileAtXY(x + buffer, y + buffer) ||
+                this.game.gameMap.isSolidTileAtXY(x + this.width - buffer, y + buffer) ||
+                this.game.gameMap.isSolidTileAtXY(x + buffer, y + this.height - buffer) ||
+                this.game.gameMap.isSolidTileAtXY(x + this.width - buffer, y + this.height - buffer)
+    }
+    
 }
 
 export default Player

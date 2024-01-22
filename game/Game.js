@@ -26,7 +26,7 @@ class Game {
 
     init(ctx) {
         this.tileAtlas = AssetLoader.getImage('villageMap');
-        this.player = new Player(this, 0, 0)
+        this.player = new Player(this, 350, 350)
         this.camera = new Camera(this.gameMap, ctx.canvas.width, ctx.canvas.height)
         this.camera.follow(this.player)
     }
@@ -44,7 +44,7 @@ class Game {
             projectile.update()
             projectile.render(ctx)
         })
-        this.#drawMapLayer(1)
+        this.#drawMapLayer(1, ctx)
     }
 
     bindInputcontrols() {
@@ -100,18 +100,6 @@ class Game {
                 var x = (c - startCol) * this.gameMap.tsize + offsetX;
                 var y = (r - startRow) * this.gameMap.tsize + offsetY;
                 if (tile !== 0) { // 0 => empty tile
-                    console.log(
-
-                        this.tileAtlas, // image
-                        (tile - 1) * this.gameMap.tsize, // source x
-                        0, // source y
-                        this.gameMap.tsize, // source width
-                        this.gameMap.tsize, // source height
-                        Math.round(x),  // target x
-                        Math.round(y), // target y
-                        this.gameMap.tsize, // target width
-                        this.gameMap.tsize // target height
-                    )
                     ctx.drawImage(
                         this.tileAtlas, // image
                         (tile - 1) * this.gameMap.tsize, // source x

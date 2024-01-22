@@ -3,7 +3,7 @@ export class DebugInfoRenderer {
         this.ctx = ctx;
     }
 
-    render(game) {
+    render(game, fps) {
         // Set the font, color, and other styles for the debug text
         this.ctx.font = '16px Arial';
         this.ctx.fillStyle = 'white';
@@ -19,5 +19,6 @@ export class DebugInfoRenderer {
         this.ctx.fillText(`Camera Position: (${game.camera.x}, ${game.camera.y})`, 10, 50);
 
         // Add more information as needed
+        this.ctx.fillText(`FPS: ${fps}`, 10, 70);
     }
 }
