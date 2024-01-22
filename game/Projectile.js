@@ -4,8 +4,8 @@ class Projectile {
         this.width = 150
         this.height = 20
         this.x = 0
-        this.mX = this.width * 0.5
-        this.mY = this.height * 0.5
+        this.middleX = this.width * 0.5
+        this.middleY = this.height * 0.5
         this.y = 0
         this.speed = 10
         this.inPool = true
@@ -14,7 +14,7 @@ class Projectile {
     render(ctx) {
         if (!this.inPool) {
             console.log('projectile: ', this.x, this.y)
-           ctx.fillRect(this.x -800, this.y, this.width, this.height) 
+           ctx.fillRect(this.x, this.y, this.width, this.height) 
         }
     }
 
@@ -26,7 +26,7 @@ class Projectile {
     }
 
     start(x, y) {
-        this.x = x - this.mX 
+        this.x = x - this.middleX 
         this.y = y
         this.inPool = false
     }
