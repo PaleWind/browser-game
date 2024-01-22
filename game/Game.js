@@ -1,4 +1,4 @@
-import AssetLoader from "../assets/AssetLoader.js"
+import AssetLoader from "./assets/AssetLoader.js"
 import Camera from "./Camera.js"
 import Player from "./Player.js"
 import Projectile from "./Projectile.js"
