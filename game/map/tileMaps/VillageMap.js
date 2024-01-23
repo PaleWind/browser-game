@@ -2,7 +2,7 @@ import BaseMap from '../iGameMap.js';
 
 class VillageMap extends BaseMap {
     constructor() {
-        super(12, 12, 64, 400, 64); // Call the constructor of the BaseMap
+        super(12, 12, 64, 400); // Call the constructor of the BaseMap
         
         // Initialize tiles
         this.layers = [[

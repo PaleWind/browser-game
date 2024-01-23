@@ -1,10 +1,11 @@
 class Player {
 
-    constructor(game, x, y) {
+    constructor(game, x, y, image) {
         this.game = game
-        this.width = game.gameMap.tsize - 4
-        this.height = game.gameMap.tsize - 4
-        this.middleX = 30
+        this.image = image
+        this.width = game.gameMap.tsize - 2 
+        this.height = game.gameMap.tsize - 2
+        this.middleX = game.gameMap.tsize 
         this.mX = game.gameMap.rows * game.gameMap.tsize  
         this.mY = game.gameMap.cols * game.gameMap.tsize 
         this.x = x 
@@ -16,11 +17,21 @@ class Player {
         this.moveHorizontal = 0
         this.moveVertical = 0
         this.computedSpeed = 0
+        this.frameX = 0
+        this.frameY = 0
+        this.staggerFrames = 10
+        this.gameFrame = 0
     }
 
     render(ctx) {
-        ctx.fillStyle = 'black'
-        ctx.fillRect(this.screenX, this.screenY, this.width, this.height)
+        // ctx.fillStyle = 'white'
+        // ctx.fillRect(this.screenX, this.screenY, this.width, this.height)
+
+        if (this.gameFrame % this.staggerFrames === 0)
+            if (this.frameX < 1) this.frameX++
+            else this.frameX = 0
+        this.gameFrame++
+        ctx.drawImage(this.image, this.frameX * 32, 0, 32, 32, this.screenX, this.screenY, this.width, this.height)
     }
 
     update(delta) {

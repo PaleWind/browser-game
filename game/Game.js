@@ -1,4 +1,4 @@
-import AssetLoader from "./assets/AssetLoader.js"
+import AssetLoader from "./utils/AssetLoader.js"
 import Camera from "./Camera.js"
 import Player from "./Player.js"
 import Projectile from "./Projectile.js"
@@ -26,7 +26,8 @@ class Game {
 
     init(ctx) {
         this.tileAtlas = AssetLoader.getImage('villageMap');
-        this.player = new Player(this, 350, 350)
+        const playerImage = AssetLoader.getImage('player')
+        this.player = new Player(this, 350, 350, playerImage)
         this.camera = new Camera(this.gameMap, ctx.canvas.width, ctx.canvas.height)
         this.camera.follow(this.player)
     }

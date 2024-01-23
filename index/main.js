@@ -1,6 +1,6 @@
 import Timer from "../game/utils/Timer.js"
 import Game from "../game/Game.js"
-import AssetLoader from "../assets/AssetLoader.js"
+import AssetLoader from "../game/utils/AssetLoader.js"
 import { DebugInfoRenderer } from "../game/utils/DebugInfoRenderer.js"
 
 let frames = 0
@@ -18,7 +18,8 @@ window.addEventListener('load', function(){
   canvas.width = CAMERA_WIDTH 
   canvas.height = CAMERA_HEIGHT
   const ctx = canvas.getContext('2d')
-  AssetLoader.loadImage('villageMap', '../assets/tiles.png')
+  AssetLoader.loadImage('villageMap', '../game/assets/tiles.png')
+  AssetLoader.loadImage('player', '../game/assets/AnimationSheet_Character.png')
   const debugInfoRenderer = new DebugInfoRenderer(ctx);
   const game = new Game(ctx)
   game.init(ctx) 
