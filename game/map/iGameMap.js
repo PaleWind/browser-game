@@ -38,15 +38,18 @@ class BaseMap {
     isSolidTileAtXY(x, y) {
         var col = Math.floor(x / this.tsize);
         var row = Math.floor(y / this.tsize);
-
+    
         // tiles 3 and 5 are solid -- the rest are walkable
         // loop through all layers and return TRUE if any tile is solid
-        return this.layers.reduce(function (res, layer, index) {
-            var tile = this.getTile(index, col, row);
-            var isSolid = tile === 3 || tile === 5;
-            return res || isSolid;
-        }.bind(this), false);
+        for (let i = 0; i < this.layers.length; i++) {
+            var tile = this.getTile(i, col, row);
+            if (tile === 3 || tile === 5) {
+                return true; // Solid tile found
+            }
+        }
+        return false; // No solid tiles found
     }
+    
 
     getCol(x) {
         return Math.floor(x / this.tsize);
