@@ -7,6 +7,10 @@ let frames = 0
 let fps = 0
 
 window.addEventListener('load', function(){
+
+  AssetLoader.loadImage('villageMap', '../game/assets/tiles.png')
+  AssetLoader.loadImage('player', '../game/assets/AnimationSheet_Character.png')
+
   const TILE_SIZE = 64
   const CAMERA_WIDTH = TILE_SIZE * 8
   const CAMERA_HEIGHT = TILE_SIZE * 8
@@ -18,15 +22,24 @@ window.addEventListener('load', function(){
   canvas.width = CAMERA_WIDTH 
   canvas.height = CAMERA_HEIGHT
   const ctx = canvas.getContext('2d')
-  AssetLoader.loadImage('villageMap', '../game/assets/tiles.png')
-  AssetLoader.loadImage('player', '../game/assets/AnimationSheet_Character.png')
   const debugInfoRenderer = new DebugInfoRenderer(ctx);
   const game = new Game(ctx)
   game.init(ctx) 
 
+  let mouse = { x: 0, y: 0}
+  function updateMousePosition(evt) {
+    const rect = canvas.getBoundingClientRect()
+    mouse.x = Math.floor(evt.clientX - rect.left)
+    mouse.y = Math.floor(evt.clientY - rect.top)
+  }
+
+  // Add mousemove event listener to the canvas
+  canvas.addEventListener('mousemove', updateMousePosition);
+
   function animate() {
     let delta = Timer.deltaTime 
     accumulatedTime += delta
+    game.updateMouse(mouse)
     while (accumulatedTime > frameTime) {
       accumulatedTime -= frameTime
       frames++
@@ -36,8 +49,7 @@ window.addEventListener('load', function(){
     }
     requestAnimationFrame(animate)
   }
-
-  animate()
+ animate()
 })
 
 setInterval(() => {
